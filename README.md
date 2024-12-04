@@ -7,3 +7,5 @@ Reusable CMake helpers
 
 * [LogHelpers.cmake](LogHelpers.md)
   Helpers to log variables and values
+* [SetHelpers.cmake](SetHelpers.md)
+  Helpers to set variables
