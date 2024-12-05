@@ -1,4 +1,4 @@
-# LogHelpers.cmake #
+# LogHelpers #
 
 Helpers to log variables and values.
 

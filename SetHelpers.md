@@ -1,4 +1,4 @@
-# SetHelpers.cmake #
+# SetHelpers #
 
 Helpers to set variables.
 
