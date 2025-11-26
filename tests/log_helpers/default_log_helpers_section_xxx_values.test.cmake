@@ -1,0 +1,8 @@
+include(CMakeUnit)
+include(LogHelpers)
+
+
+# Assert
+EXPECT_STREQ("${LOG_HELPERS_SECTION_BEGIN}" "┌ ")
+EXPECT_STREQ("${LOG_HELPERS_SECTION_INDENT}" "│  ")
+EXPECT_STREQ("${LOG_HELPERS_SECTION_END}" "└")
