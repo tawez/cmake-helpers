@@ -12,3 +12,6 @@ Reusable CMake helpers
 
 - [GitHelpers](docs/GitHelpers.md)
   Helpers to get commit hashes and git refs
+
+- [GoogleTestLoader](docs/GoogleTestLoader.md)
+  Helper to fetch GoogleTest
