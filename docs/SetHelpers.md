@@ -2,6 +2,11 @@
 
 Helpers to set variables.
 
+- Macros
+  - [set_if_defined](#set_if_defined)
+  - [set_if_undefined](#set_if_undefined)
+  - [set_or_default](#set_or_default)
+
 
 ## Macros
 
@@ -15,8 +20,10 @@ set_if_defined(<variable> <value> [PARENT_SCOPE])
 
 #### Params
 
-- `variable`  variable to update
-- `value`     value to set
+- `variable`  
+  Variable to update.
+- `value`  
+  Value to set.
 
 #### Example
 
@@ -47,8 +54,10 @@ set_if_undefined(<variable> <value> [PARENT_SCOPE])
 ```
 
 #### Params
-- `variable`  variable to define
-- `value`     value to be set
+- `variable`  
+  Variable to define.
+- `value`  
+  Value to set.
 
 #### Example
 
@@ -80,9 +89,12 @@ set_or_default(<destination> <source> <default> [PARENT_SCOPE])
 
 #### Params
 
-- `destination`  variable to store the result
-- `source`       variable storing value to set
-- `default`      default value or variable storing default value
+- `destination`  
+  Variable to store the result.
+- `source`  
+  Variable storing value to set.
+- `default`  
+  Default value or variable storing default value.
 
 #### Example
 
