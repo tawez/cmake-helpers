@@ -2,6 +2,13 @@
 
 Helpers to get commit hashes, git refs and other useful things.
 
+- Variables
+  - [GIT_HELPERS_WORKING_DIRECTORY](#git_helpers_working_directory)
+- Functions
+  - [git_ref](#git_ref)
+  - [git_hash](#git_hash)
+  - [git_current_branch](#git_current_branch)
+
 
 ## Dependencies
 
@@ -40,20 +47,20 @@ git_ref(<variable>
 #### Params
 
 - `<variable>`  
-  Variable to set
+  Variable to set.
 - `ANNOTATED`  
-  Use only annotated tags
+  Use only annotated tags.
 - `DIRTY`  
-  Append "-dirty" if the working tree has local modification
+  Append "-dirty" if the working tree has local modification.
 - `MATCH <pattern>`  
-  Only consider tags matching the given [glob][man::glob] pattern
+  Only consider tags matching the given [glob][man::glob] pattern.
 - `ABBREV <n>`  
   Use <n> hexadecimal digits of the abbreviated object name.
   The default number will be used if not specified.
   An <n> of 0 will suppress long format, only showing the closest tag.
 - `WORKING_DIRECTORY <dir>`  
   Current working directory of the processes
-  (defaults to GIT_HELPERS_WORKING_DIRECTORY)
+  (defaults to GIT_HELPERS_WORKING_DIRECTORY).
 
 #### Example
 
@@ -105,7 +112,7 @@ git_hash(<variable>
   An <n> of 0 will suppress long format, only showing the closest tag.
 - `WORKING_DIRECTORY <dir>`  
   Current working directory of the processes
-  (defaults to GIT_HELPERS_WORKING_DIRECTORY)
+  (defaults to GIT_HELPERS_WORKING_DIRECTORY).
 
 #### Example
 

@@ -2,6 +2,35 @@
 
 Add GoogleTest to the project using `FetchContent`.
 
+- Variables
+  - [GOOGLETEST_LOADER_GIT_REPOSITORY](#googletest_loader_git_repository)
+  - [GOOGLETEST_LOADER_GIT_REF](#googletest_loader_git_ref)
+
+
+## Dependencies
+
+- [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
+- [SetHelpers](SetHelpers.md)
+
+
+## Variables
+
+### GOOGLETEST_LOADER_GIT_REPOSITORY
+
+Address of the git repository, from which the GoogleTest will be fetched,
+defaults to `"https://github.com/google/googletest"`.
+
+Can be redefined by setting its value before including `GoogleTestLoader`.
+
+
+### GOOGLETEST_LOADER_GIT_REF
+
+Git ref in the GOOGLETEST_LOADER_GIT_REPOSITORY to be fetched, defaults to `"origin/main"`.
+
+Can be redefined by setting its value before including `GoogleTestLoader`.
+
+> **NOTE:** It can be _tag_, _branch_ or _hash_, however CMake recommendation is to use hashes.
+
 
 ## Usage ##
 
@@ -21,28 +50,3 @@ if (PROJECT_IS_TOP_LEVEL)
     include(GoogleTest)
 endif ()
 ```
-
-
-## Variables
-
-### GOOGLETEST_LOADER_GIT_REPOSITORY 
-
-Address of the git repository, from which the GoogleTest will be fetched,
-defaults to `"https://github.com/google/googletest"`.
-
-Can be redefined by setting its value before including `GoogleTestLoader`.
-
-
-### GOOGLETEST_LOADER_GIT_REF 
-
-Git ref in the GOOGLETEST_LOADER_GIT_REPOSITORY to be fetched, defaults to `"origin/main"`.
-
-Can be redefined by setting its value before including `GoogleTestLoader`.
-
-> **NOTE:** It can be _tag_, _branch_ or _hash_, however CMake recommendation is to use hashes.
-
-
-## Dependencies
-
-- [SetHelpers](SetHelpers.md)
-- [FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
