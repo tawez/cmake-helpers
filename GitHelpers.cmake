@@ -25,6 +25,10 @@
 
 find_package(Git REQUIRED)
 
+include(SetHelpers)
+
+set_if_undefined(GIT_HELPERS_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
 
 # Sets variable to a human-readable name based on an available ref.
 # Underneath it is `git describe` with only selected options allowed.
@@ -35,18 +39,21 @@ find_package(Git REQUIRED)
 #           [ANNOTATED]
 #           [DIRTY]
 #           [MATCH <pattern>]
-#           [ABBREV <n>])
+#           [ABBREV <n>]
+#           [WORKING_DIRECTORY <dir>])
 # Params:
-#   <variable>       Variable to set.
-#   ANNOTATED        Use only annotated tags.
-#   DIRTY            Append "-dirty" if the working tree has local modification.
-#   MATCH <pattern>  Only consider tags matching the given glob(7) pattern.
-#   ABBREV <n>       Use <n> hexadecimal digits of the abbreviated object name.
-#                    The default number will be used if not specified.
-#                    An <n> of 0 will suppress long format, only showing the closest tag.
+#   <variable>               Variable to set.
+#   ANNOTATED                Use only annotated tags.
+#   DIRTY                    Append "-dirty" if the working tree has local modification.
+#   MATCH <pattern>          Only consider tags matching the given glob(7) pattern.
+#   ABBREV <n>               Use <n> hexadecimal digits of the abbreviated object name.
+#                            The default number will be used if not specified.
+#                            An <n> of 0 will suppress long format, only showing the closest tag.
+#   WORKING_DIRECTORY <dir>  Current working directory of the processes
+#                            (defaults to GIT_HELPERS_WORKING_DIRECTORY)
 function(git_ref variable)
     set(options ANNOTATED DIRTY)
-    set(oneValueArgs MATCH ABBREV)
+    set(oneValueArgs MATCH ABBREV WORKING_DIRECTORY)
     set(multiValueArgs "")
     cmake_parse_arguments(arg "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -64,8 +71,11 @@ function(git_ref variable)
         list(APPEND COMMAND_ARGS "--match=${arg_MATCH}")
     endif ()
 
+    set_if_undefined(arg_WORKING_DIRECTORY "${GIT_HELPERS_WORKING_DIRECTORY}")
+
     execute_process(
         COMMAND ${GIT_EXECUTABLE} describe ${COMMAND_ARGS}
+        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
         RESULT_VARIABLE status_
         OUTPUT_VARIABLE tag_
         OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -82,18 +92,21 @@ endfunction()
 #           [REF <name>]
 #           [ANNOTATED]
 #           [MATCH <pattern>]
-#           [ABBREV <n>])
+#           [ABBREV <n>]
+#           [WORKING_DIRECTORY <dir>])
 # Params:
-#   <variable>       Variable to set.
-#   REF <name>       Ref name, if given all the oter params will be ignored.
-#   ANNOTATED        Use only annotated tags.
-#   MATCH <pattern>  Only consider tags matching the given glob(7) pattern.
-#   ABBREV <n>       Use <n> hexadecimal digits of the abbreviated object name.
-#                    The default number will be used if not specified.
-#                    An <n> of 0 will suppress long format, only showing the closest tag.
+#   <variable>               Variable to set.
+#   REF <name>               Ref name, if given all the oter params will be ignored.
+#   ANNOTATED                Use only annotated tags.
+#   MATCH <pattern>          Only consider tags matching the given glob(7) pattern.
+#   ABBREV <n>               Use <n> hexadecimal digits of the abbreviated object name.
+#                            The default number will be used if not specified.
+#                            An <n> of 0 will suppress long format, only showing the closest tag.
+#   WORKING_DIRECTORY <dir>  Current working directory of the processes
+#                            (defaults to GIT_HELPERS_WORKING_DIRECTORY)
 function(git_hash variable)
     set(options DIRTY) # omit DIRTY
-    set(oneValueArgs REF)
+    set(oneValueArgs REF WORKING_DIRECTORY)
     set(multiValueArgs "")
     cmake_parse_arguments(arg "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -103,9 +116,12 @@ function(git_hash variable)
         git_ref(tag_ ${arg_UNPARSED_ARGUMENTS})
     endif ()
 
+    set_if_undefined(arg_WORKING_DIRECTORY "${GIT_HELPERS_WORKING_DIRECTORY}")
+
     if (DEFINED tag_)
         execute_process(
             COMMAND ${GIT_EXECUTABLE} rev-list -1 ${tag_}
+            WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
             RESULT_VARIABLE status_
             OUTPUT_VARIABLE hash_
             OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -117,12 +133,23 @@ endfunction()
 
 # Sets variable to the current branch.
 # Usage:
-#   git_current_branch(<variable>)
+#   git_current_branch(<variable>
+#           [WORKING_DIRECTORY <dir>])
 # Params:
-#   <variable>       Variable to set.
+#   <variable>               Variable to set
+#   WORKING_DIRECTORY <dir>  Current working directory of the processes
+#                            (defaults to GIT_HELPERS_WORKING_DIRECTORY)
 function(git_current_branch variable)
+    set(options "")
+    set(oneValueArgs WORKING_DIRECTORY)
+    set(multiValueArgs "")
+    cmake_parse_arguments(arg "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+    set_if_undefined(arg_WORKING_DIRECTORY "${GIT_HELPERS_WORKING_DIRECTORY}")
+
     execute_process(
         COMMAND ${GIT_EXECUTABLE} branch --show-current
+        WORKING_DIRECTORY ${arg_WORKING_DIRECTORY}
         RESULT_VARIABLE status_
         OUTPUT_VARIABLE branch_
         OUTPUT_STRIP_TRAILING_WHITESPACE
