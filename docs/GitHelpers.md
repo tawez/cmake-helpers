@@ -46,7 +46,7 @@ git_ref(<variable>
 
 #### Params
 
-- `<variable>`  
+- `variable`  
   Variable to set.
 - `ANNOTATED`  
   Use only annotated tags.
@@ -98,7 +98,7 @@ git_hash(<variable>
 
 #### Params
 
-- `<variable>`  
+- `variable`  
   Variable to set.
 - `REF <name>`  
   Ref name, if given all the oter params will be ignored.
@@ -142,7 +142,7 @@ git_current_branch(<variable>
 
 #### Params
 
-- `<variable>`  
+- `variable`  
   Variable to set.
 - `WORKING_DIRECTORY <dir>`  
   Current working directory of the processes

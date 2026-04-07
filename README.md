@@ -7,7 +7,7 @@ Reusable CMake helpers
 - [SetHelpers](docs/SetHelpers.md)
   Helpers to set variables
 
-- [LogHelpers](docs/LogHelpers.md)
+- [MessageHelpers](docs/MessageHelpers.md)
   Helpers to log variables and values
 
 - [GitHelpers](docs/GitHelpers.md)
